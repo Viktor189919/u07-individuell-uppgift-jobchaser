@@ -1,0 +1,21 @@
+.searchbarContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.searchHeader {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.input {
+    width: 30%;
+    border-radius: 3px;
+    padding: 0.4rem;
+    margin-bottom: 5rem;
+}
+
+

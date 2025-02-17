@@ -1,0 +1,24 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.8rem;
+    gap: 1rem;
+}
+
+.form .input {
+    width: 70%;
+    border: solid 1px black;
+    border-radius: 4px;
+    padding: 0.3rem;
+}
+
+.form .fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.form .submitInput {
+    width: 30%;
+    align-self: center;
+}
