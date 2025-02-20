@@ -27,7 +27,7 @@ export default function MainLayout({ children }: {children: React.ReactNode}) {
                 <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet" />
             </head>
             <body>
-                <div id="root" style={darkTheme ? {backgroundColor: "black", color: "white"} : {backgroundColor: "rgb(180, 180, 180)", color: "black"}}>
+                <div id="root" style={darkTheme ? {backgroundColor: "black", color: "white"} : {backgroundColor: "rgb(210, 210, 210)", color: "black"}}>
                     <Header />
                     <main className={styles.main}>
                         {children}
