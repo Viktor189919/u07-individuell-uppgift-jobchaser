@@ -1,6 +1,7 @@
 .joblist {
-  width: 100%;
-  max-width: 70rem;
+  width: 80%;
+  min-width: 20rem;
+  max-width: 50rem;
   border: 2px solid black;
   border-radius: 5px;
   background-color: white;
@@ -9,6 +10,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
+  justify-self: center;
   gap: 1rem;
 }
 

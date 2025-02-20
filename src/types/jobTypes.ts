@@ -1,13 +1,13 @@
 export type JoblistProps = {
-  jobList: JobdataApi[]; 
+  jobList: Jobdata[]; 
   isLoading : boolean;
 }
 
 export type JobProps = {
-  jobData: JobdataApi;
+  jobData: Jobdata;
 }
 
-export type JobdataApi = {
+export type Jobdata = {
   id: number;
   employer: {
     name: string;
@@ -18,6 +18,6 @@ export type JobdataApi = {
 }
 
 export type JobsArray = {
-  hits: JobdataApi[];
+  hits: Jobdata[];
 }
  

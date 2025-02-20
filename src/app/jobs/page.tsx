@@ -1,11 +1,15 @@
 "use client"
 
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { redirect } from "next/navigation"
+import React, { useContext, useState, useEffect } from "react";
+import { redirect } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useGetJobsByTypeQuery } from "@/redux/jobtechApi";
 import Joblist from "@/components/Joblist";
 import Searchbar from "@/components/Searchbar";
-import { AuthContext } from "@/context/AuthorizedContext"
-import { JobdataApi, JobsArray,  } from "@/types/jobTypes";
+import { AuthContext } from "@/context/AuthorizedContext";
+
+import { setJobs, filter } from "@/redux/jobListSlice";
+
 
 export default function JobsPage() {
 
@@ -15,71 +19,45 @@ export default function JobsPage() {
         throw new Error("AuthContext does not have a valid value")
     }
 
-    const { isAuthorized } = authContext
+    const { isAuthorized } = authContext;
 
     if (!isAuthorized) {
         redirect("/");
     }
  
-  const origJobData = useRef<JobdataApi[]>([]);
-  const [ jobDataList, setJobDataList ] = useState<JobdataApi[]>([]);
-  const [ loading, setLoading ] = useState<boolean>(true);
-  const [ searchValue, setSearchValue ] = useState<string>("");
+    const [ searchValue, setSearchValue ] = useState<string>("");
 
+    const jobList = useAppSelector(state => state.jobList.jobList);
+    const dispatch = useAppDispatch()
+    
+    const { data, error, isLoading } = useGetJobsByTypeQuery("programmerare");
 
+    if (error) {
+        console.error("Error fetching jobs");
+    }
 
-  useEffect(() => {
-        console.log("UseEffect from joblist")
-      async function fetchJobs() {
-          console.log("fetch")
+    useEffect(() => {
+        
+        if (data) {
+            dispatch(setJobs(data.hits))
+        }
 
-          const headers = {"Accept": "application/json"};
-          const queryString = new URLSearchParams({q: "programmerare", limit: "20"}).toString();
-          const url = `${"https://jobsearch.api.jobtechdev.se/search"}?${queryString}`;
-          try {
-              const response = await fetch(url, { headers });
+    }, [data, dispatch])
 
-              if (!response.ok) {
-                  throw new Error("Error fetching jobdata");
-              };
+    function handleSearch(e : (React.ChangeEvent<HTMLInputElement>) ) : void {
+        setSearchValue(e.target.value);
+        dispatch(filter(e.target.value))
+    };
 
-              const jobData = await response.json() as JobsArray;
+    function handleFilter(word : string) : void {
 
-              if (jobData) {
-                  console.log(jobData.hits);
-                  origJobData.current = jobData.hits; 
-                  setJobDataList(jobData.hits);
-              } else {
-                  throw new Error("Error setting data");
-              };
-              
-          } catch (error) {
-              console.error(error);
-          } finally {
-              setLoading(false);
-          };
-      };
-
-      fetchJobs();
-  }, []);
-
-  useEffect(() => {
-      if (searchValue) {
-          setJobDataList(origJobData.current.filter(job => { 
-              return job.employer.name.toLowerCase().replace(" ", "").includes(searchValue.toLowerCase().replace(" ", ""))
-              || job.headline.toLowerCase().replace(" ", "").includes(searchValue.toLowerCase().replace(" ", ""));
-              }));
-      } else {
-          setJobDataList(origJobData.current);
-      };
-  }, [searchValue])
-
-  function handleSearch(e : React.ChangeEvent<HTMLInputElement>) : void {
-      setSearchValue(e.target.value);
-  };
+        if (word) {
+            dispatch(filter(word))
+        }
+  }
 
   return  <>
-              <Searchbar inputValue={searchValue} searchFunc={handleSearch} />
-              <Joblist jobList={jobDataList} isLoading={loading}/>
+              <Searchbar inputValue={searchValue} searchFunc={handleSearch} filterFunc={handleFilter} />
+              <Joblist jobList={jobList} isLoading={isLoading}/>
           </>
 };

@@ -1,17 +1,26 @@
 "use client"
+
 import styles from "@/components/Searchbar/Searchbar.module.css"
 
 import { SearchbarProps } from  "@/types/searchbarTypes"
 
-export default function Searchbar({ inputValue, searchFunc } : SearchbarProps) {
+export default function Searchbar({ inputValue, searchFunc, filterFunc } : SearchbarProps) {
 
-    return  (<div className={styles.searchbarContainer}>
+    return  (
+        <div className={styles.searchbarContainer}>
                 <p className={styles.searchHeader}>Search jobs</p>
                 <input className={styles.input}
                     type="text" 
                     value={inputValue}
                     onChange={(e : React.ChangeEvent<HTMLInputElement>) => searchFunc(e)}
-                    placeholder="Ex. React..."
+                    placeholder="Ex. React..." 
                 />
-            </div>)
+                <div className={styles.btnContainer}>
+                    <button className={styles.btn} onClick={(e : React.MouseEvent<HTMLButtonElement>) => filterFunc("react")}>React</button>
+                    <button className={styles.btn} onClick={(e : React.MouseEvent<HTMLButtonElement>) => filterFunc("vue")}>Vue</button>
+                    <button className={styles.btn} onClick={(e : React.MouseEvent<HTMLButtonElement>) => filterFunc("angular")}>Angular</button>
+                    <button className={styles.btn} onClick={(e : React.MouseEvent<HTMLButtonElement>) => filterFunc("all")}>Show all</button>
+                </div>
+        </div>
+    )
 }

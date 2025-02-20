@@ -1,10 +1,11 @@
 "use client"
 
-import React, { useContext } from "react"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+import React, { useContext } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
 import { ThemeContext } from "@/context/ThemeContext";
+import styles from "@/components/MainLayout/MainLayout.module.css";
 
 export default function MainLayout({ children }: {children: React.ReactNode}) {
     
@@ -26,9 +27,9 @@ export default function MainLayout({ children }: {children: React.ReactNode}) {
                 <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet" />
             </head>
             <body>
-                <div id="root" style={darkTheme ? {backgroundColor: "black", color: "white"} : {backgroundColor: "white", color: "black"}}>
+                <div id="root" style={darkTheme ? {backgroundColor: "black", color: "white"} : {backgroundColor: "rgb(180, 180, 180)", color: "black"}}>
                     <Header />
-                    <main>
+                    <main className={styles.main}>
                         {children}
                     </main>
                     <Footer />

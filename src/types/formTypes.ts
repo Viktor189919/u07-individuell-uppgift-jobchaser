@@ -1,9 +1,9 @@
-export interface FormProps {
+export type FormProps = {
     isSignup : boolean;
     authUser : (userInfo : FormInputs) => void;
 }
 
-export interface FormInputs {
+export type FormInputs = {
     name? : string;
     email : string;
     password : string;

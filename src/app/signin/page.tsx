@@ -1,4 +1,5 @@
 "use client"
+
 import { useContext } from "react"
 import Form from "@/components/Form"
 import { AuthContext } from "@/context/AuthorizedContext"
@@ -12,8 +13,7 @@ export default function SignInPage() {
         throw new Error("AuthContext does not have a valid value")
     }
 
-    const { isAuthorized, login } = authContext;
-    console.log(isAuthorized)
+    const { login } = authContext;
 
     return(
         <>

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import { FormInputs } from "@/types/formTypes"
-import { signup, signin, signout} from "@/utils/SupabaseApi"
+import { signup, signin, signout, getUserData, getSession} from "@/utils/SupabaseApi"
 import { UserNameContext } from "./UserNameContext";
 
 type AuthContextType = {
@@ -22,26 +22,33 @@ export default function AuthorizedProvider({ children } : { children : React.Rea
         throw new Error("UserNameContext does not have a valid value")
     }
 
-    const { userName, setUserName } = userNameContext;
+    const { setUserName } = userNameContext;
 
-    const login = async (userInfo : FormInputs) => {
+    async function login(userInfo : FormInputs) {
         try {
             const user = await signin(userInfo);
-            localStorage.setItem("authorized", "true");
-            const isLoggedIn = localStorage.getItem("authorized")
-            if (isLoggedIn) {
+            const session = await getSession()
+            
+            if (session) {
                 setIsAuthorized(true);
                 if (user) {
-                    const name = user[0].name
-                    setUserName(name)
+                    try {
+                        const userName = await getUserData(user)
+                        if (userName) {
+                            setUserName(userName)
+                        }
+                    } catch (error) {
+                        console.error(error)
+                    }
                 }
             }
         } catch (error) {
-            console.error("Error signing in", error);
+            console.error(error);
         }
+
     }
 
-    const logout = async () => {
+    async function logout() {
         try {
             await signout();
             localStorage.removeItem("authorized");
