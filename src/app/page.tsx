@@ -1,20 +1,14 @@
 "use client"
 
-import React, { useContext } from "react";
-import { ThemeContext } from "@/context/ThemeContext";
+import React, { useContext, useEffect } from "react";
 import styles from "@/styles/HomePage.module.css"
 import { AuthContext } from "@/context/AuthorizedContext";
 import { UserNameContext } from "@/context/UserNameContext";
 
 export default function HomePage() {
 
-    const themeContext = useContext(ThemeContext)
     const authContext = useContext(AuthContext);
     const userNameContext = useContext(UserNameContext);
-
-    if (!themeContext) {
-        throw new Error("ThemeContext does not have a valid value")
-    }
 
     if (!authContext) {
         throw new Error("AuthContext does not have a valid value")
@@ -24,11 +18,13 @@ export default function HomePage() {
         throw new Error("UserNameContext does not have a valid value")
     }
 
-    const { darkTheme } = themeContext
-    const { isAuthorized } = authContext;
+    const { isAuthorized, fetchSession } = authContext;
     const { userName } = userNameContext;
-
-    console.log(userName)
+    
+    useEffect(() => {
+        fetchSession()
+    }, [])
+    
 
     return (
         <>        

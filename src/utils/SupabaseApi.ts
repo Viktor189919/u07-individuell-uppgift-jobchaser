@@ -1,10 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
 import { FormInputs } from "@/types/formTypes"
-// import { User } from "@supabase/supabase-js"
+import { Session } from "@/utils/SupabaseTypes"
 
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
 
-export async function signup(newUser : FormInputs) {
+export async function signup(newUser : FormInputs) : Promise<void> {
     const { data, error } = await supabase.auth.signUp({
         email: newUser.email,
         password: newUser.password,
@@ -42,7 +42,7 @@ export async function signin(user : FormInputs) : Promise<string | undefined> {
     }
 };
 
-export async function signout() {
+export async function signout() : Promise<void> {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
@@ -52,7 +52,7 @@ export async function signout() {
     return;
 }
 
-export async function getUserData(userId : string) {
+export async function getUserData(userId : string) : Promise<string | undefined> {
     const { data, error } = await supabase
         .from("profiles")
         .select("name")
@@ -67,15 +67,14 @@ export async function getUserData(userId : string) {
     }
 }
 
-export async function getSession() {
+export async function getSession() : Promise<Session | undefined> {
     const { data, error } = await supabase.auth.getSession()
 
     if (error) {
         throw new Error("Error fetching session")
-        return
     }
 
-    if (data.session?.access_token) {
-        return data.session.access_token
+    if (data.session) {
+        return data.session;
     }
 }
