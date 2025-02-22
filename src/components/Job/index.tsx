@@ -25,7 +25,7 @@ export default function Job({jobData} : JobProps) {
                             : `https://${employer.url}`
 
     return  <article className={styles.job} style={darkTheme ? {border: "solid 2px yellow"} : {}}>
-                <Image className={styles.img} src={logo_url} alt={`${employer.name ? employer.name : "Company"} logo`} />
+                <Image className={styles.img} src={logo_url} width={300} height={300} alt={`${employer.name ? employer.name : "Company"} logo`} />
                 <h2 className={styles.h2}>{employer.name ? employer.name : "Company name unavailable"}</h2>
                 <p className={styles.p}>{headline ? headline : "Jobdescription unavailable"}</p>
                 <a className={styles.a} href={employerWebpage} target="_blank">Visit homepage</a>
