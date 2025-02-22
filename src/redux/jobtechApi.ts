@@ -7,7 +7,7 @@ export const jobtechApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "https://jobsearch.api.jobtechdev.se/search"}),
     endpoints: (builder) => ({
         getJobsByType: builder.query({
-            query: (type) => `?q=${type}&limit=100`,
+            query: (type) => `?q=${type}&limit=20`,
         })
     })
 })
