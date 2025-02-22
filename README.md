@@ -1,5 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/c1G8BKTh)
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=17883239&assignment_repo_type=AssignmentRepo)
+
 # u07-individuell-uppgift-JobChaser
 
 # Teoretiska frågor
@@ -70,4 +71,38 @@ Det är att hantera sido-effekter under vissa omständigheter. Används ofta i s
 ### Vad är syftet med den s.k dependency-arrayen i useEffect?
 
 Där i kan man specificera när useEffect ska köras. Vid en tom array "[]" så körs den första gången en komponent renderar. 
-Om useEffecten ska köras beroende på en state variabel så sätter man variablen inuti arrayen "[stateVariable]"
+Om useEffecten ska köras beroende på en state variabel så sätter man variablen inuti arrayen "[stateVariable]".
+
+## Vecka 3
+
+### Vilka fördelar finns det med att använda NextJS? Nackdelar?
+
+Server-side rendering:
+Man kan använda next för att rendera en html sida på servern istället för i browsern. Detta kan förbättra prestandan och generera UI snabbare för användaren.
+
+### Vad menas med Routing? På vilket sätt löser NextJS Routing vs "vanliga React"?
+
+Routing i webbutveckling är de metoder som avgör vart en http förfrågan ska skickas. Routes är olika vägar som kan tas i en applikation. Ex. så kan routes på en hemsida vara "home", "about", etc. Routes är förknippade med en specifik url-ändelse. Med exemplen home och about så skulle ändelser kunna vara just /home och /about.
+NextJS använder sig av fil-baserad routing där olika filer står för olika sidor av en hemsida. Dessa hanteras direkt av Next genom själva filstrukturen.
+React använder sig istället av ett bibliotek kallad Browser Router där en "route"-komponent måste deklareras. Man definierar en route och nästlar den komponent som ska tillhöra den routen.
+
+### Vad menas med Reacts ekosystem? Nämn några viktig bibliotek i Reacts ekosystem.
+
+Det är alla samlade verktyg, bibliotek och ramverk som är byggda ovanpå react.
+Populära bibliotek är shadcn, react hook form, chakra, bootstrap mm.
+
+### Vad är syftet med useContext? Vilket problem med props löser den?
+
+Det är ett verktyg i react för att kunna skapa globala tllstånd. En kontext wrappas runt de komponenter som ska ha tillgång till den och komponenterna kan då "kalla" på kontexten genom useContext direkt i komponenten. Om man skulle använda useState så måste statet skickas till komponenten som en prop från en parent. Kontext förenklar åtkomst av state. 
+
+## Vecka 4
+
+### Vad är Redux Toolkit? 
+
+Redux är ett bibliotek för att hantera globala tillstånd i en applikaton.
+Toolkit är i sin tur en samling verktyg för standarisering av hanteringen av globala tillstånd. Den minskar boilerplate kod som förenklar användning.
+
+## När, i vilka situationer vill man använda Redux Toolkit?
+
+Redux är utformat för att underlätta hantering när man har flera olika, ofta komplexa tillstånd. Man kan samla funktionalitet i en reducer, kallad "slice". Dessa olika slices är i sin tur samlade i en fil kallad store vilken använder sig av en provider för att ge komponenter tillgång slices och dess tillstånd och metoder.
+Således så kan Redux först visa sin fulla styrka när applikationer växer. I mindre applikationer kan det vara överflödigt då tillstånd och metoder är få till antalet och kan hanteras lika väl med verktyg som useState, useContext, useReducer, mm.

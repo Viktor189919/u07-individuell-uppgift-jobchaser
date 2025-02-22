@@ -37,14 +37,44 @@ export default function Form({ isSignup, authUser } : FormProps) {
 
     return ( 
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            {isSignup && <fieldset  className={styles.fieldset}><label htmlFor="name-input">Name</label><input id="name-input" className={styles.input}  type="text" {...register("name", {required: true})}/></fieldset>}
+            {isSignup && 
+                <fieldset  className={styles.fieldset}>
+                    <label htmlFor="nameInput">Name</label>
+                    <input className={styles.input}
+                        id="nameInput"  
+                        {...register("name", 
+                            {required: "Name is required",
+                                pattern: {
+                                    value: /[a-öA-Ö]/,
+                                    message: "Name can only contain letters a-ö",
+                    }})} />
+                    {errors.name && <p className={styles.fieldErrorMsg}>{errors.name.message}</p>}
+                </fieldset>}
+            
             <fieldset className={styles.fieldset}>
-            <label htmlFor="email-input">Email</label>
-            <input className={styles.input} {...register("email", {required: true})} />
+                <label htmlFor="emailInput">Email</label>
+                <input className={styles.input} 
+                    id="emailInput"
+                    {...register("email", 
+                        {required: "Email is required",
+                            pattern: {
+                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                message: "Invalid email format",
+                }})} />
+                {errors.email && <p className={styles.fieldErrorMsg}>{errors.email.message}</p>}
             </fieldset>
+
             <fieldset className={styles.fieldset}>
-            <label htmlFor="password-input">Password</label>
-            <input className={styles.input} id="password-input" type="password" {...register("password", {required: true})}/>
+                <label htmlFor="passwordInput">Password</label>
+                <input className={styles.input} 
+                    id="passwordInput" 
+                    {...register("password", 
+                        {required: "Password is required", 
+                            minLength: {
+                                value: 6, 
+                                message: "Password must be at least 6 characters"
+                }})}/>
+                {errors.password && <p className={styles.fieldErrorMsg}>{errors.password.message}</p>}
             </fieldset>
             <input className={styles.submitInput} type="submit" />
         </form>

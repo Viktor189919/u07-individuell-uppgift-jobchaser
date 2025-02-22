@@ -7,6 +7,9 @@ export type FormInputs = {
     name? : string;
     email : string;
     password : string;
+    error: {
+        message: string;
+    }
 }
 
 
