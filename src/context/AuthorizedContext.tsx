@@ -3,7 +3,6 @@
 import { createContext, useContext, useState } from "react";
 import { FormInputs } from "@/types/formTypes"
 import { signin, signout, getUserData, getSession} from "@/utils/SupabaseApi"
-import { Session } from "@/utils/SupabaseTypes"
 import { UserNameContext } from "./UserNameContext";
 
 type AuthContextType = {

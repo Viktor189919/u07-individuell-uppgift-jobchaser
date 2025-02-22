@@ -3,13 +3,10 @@
 import React, { useContext } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { usePathname } from "next/navigation";
 import { ThemeContext } from "@/context/ThemeContext";
 import styles from "@/components/MainLayout/MainLayout.module.css";
 
 export default function MainLayout({ children }: {children: React.ReactNode}) {
-    
-    const pathName = usePathname();
 
     const themeContext = useContext(ThemeContext);
 

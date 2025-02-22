@@ -12,7 +12,7 @@ export default function ThemeSwitch() {
         throw new Error("ThemeContext does not have a valid state")
     }
 
-    const { darkTheme, setDarkTheme } = context
+    const { setDarkTheme } = context
 
     return (
         <div className={styles.switchContainer}>
